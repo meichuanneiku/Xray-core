@@ -5,11 +5,11 @@ import (
 	"crypto/rand"
 	"io"
 
-	"github.com/xtls/xray-core/common"
-	"github.com/xtls/xray-core/common/buf"
-	"github.com/xtls/xray-core/common/bytespool"
-	"github.com/xtls/xray-core/common/errors"
-	"github.com/xtls/xray-core/common/protocol"
+	"github.com/meichuanneiku/xray-core/common"
+	"github.com/meichuanneiku/xray-core/common/buf"
+	"github.com/meichuanneiku/xray-core/common/bytespool"
+	"github.com/meichuanneiku/xray-core/common/errors"
+	"github.com/meichuanneiku/xray-core/common/protocol"
 )
 
 type BytesGenerator func() []byte

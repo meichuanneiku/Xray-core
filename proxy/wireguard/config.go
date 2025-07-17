@@ -3,7 +3,7 @@ package wireguard
 import (
 	"context"
 
-	"github.com/xtls/xray-core/common/errors"
+	"github.com/meichuanneiku/xray-core/common/errors"
 )
 
 func (c *DeviceConfig) preferIP4() bool {

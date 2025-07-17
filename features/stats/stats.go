@@ -4,9 +4,9 @@ import (
 	"context"
 	"time"
 
-	"github.com/xtls/xray-core/common"
-	"github.com/xtls/xray-core/common/errors"
-	"github.com/xtls/xray-core/features"
+	"github.com/meichuanneiku/xray-core/common"
+	"github.com/meichuanneiku/xray-core/common/errors"
+	"github.com/meichuanneiku/xray-core/features"
 )
 
 // Counter is the interface for stats counters.

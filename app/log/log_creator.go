@@ -3,9 +3,9 @@ package log
 import (
 	"sync"
 
-	"github.com/xtls/xray-core/common"
-	"github.com/xtls/xray-core/common/errors"
-	"github.com/xtls/xray-core/common/log"
+	"github.com/meichuanneiku/xray-core/common"
+	"github.com/meichuanneiku/xray-core/common/errors"
+	"github.com/meichuanneiku/xray-core/common/log"
 )
 
 type HandlerCreatorOptions struct {

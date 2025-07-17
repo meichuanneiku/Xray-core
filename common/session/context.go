@@ -4,9 +4,9 @@ import (
 	"context"
 	_ "unsafe"
 
-	"github.com/xtls/xray-core/common/ctx"
-	"github.com/xtls/xray-core/common/net"
-	"github.com/xtls/xray-core/features/routing"
+	"github.com/meichuanneiku/xray-core/common/ctx"
+	"github.com/meichuanneiku/xray-core/common/net"
+	"github.com/meichuanneiku/xray-core/features/routing"
 )
 
 //go:linkname IndependentCancelCtx context.newCancelCtx

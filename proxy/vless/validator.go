@@ -4,9 +4,9 @@ import (
 	"strings"
 	"sync"
 
-	"github.com/xtls/xray-core/common/errors"
-	"github.com/xtls/xray-core/common/protocol"
-	"github.com/xtls/xray-core/common/uuid"
+	"github.com/meichuanneiku/xray-core/common/errors"
+	"github.com/meichuanneiku/xray-core/common/protocol"
+	"github.com/meichuanneiku/xray-core/common/uuid"
 )
 
 type Validator interface {

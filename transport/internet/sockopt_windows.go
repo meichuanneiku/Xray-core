@@ -10,7 +10,7 @@ import (
 	"syscall"
 	"unsafe"
 
-	"github.com/xtls/xray-core/common/errors"
+	"github.com/meichuanneiku/xray-core/common/errors"
 )
 
 const (

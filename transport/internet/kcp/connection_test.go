@@ -5,8 +5,8 @@ import (
 	"testing"
 	"time"
 
-	"github.com/xtls/xray-core/common/buf"
-	. "github.com/xtls/xray-core/transport/internet/kcp"
+	"github.com/meichuanneiku/xray-core/common/buf"
+	. "github.com/meichuanneiku/xray-core/transport/internet/kcp"
 )
 
 type NoOpCloser int

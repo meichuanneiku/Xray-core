@@ -3,8 +3,8 @@ package conf_test
 import (
 	"testing"
 
-	"github.com/xtls/xray-core/app/reverse"
-	"github.com/xtls/xray-core/infra/conf"
+	"github.com/meichuanneiku/xray-core/app/reverse"
+	"github.com/meichuanneiku/xray-core/infra/conf"
 )
 
 func TestReverseConfig(t *testing.T) {

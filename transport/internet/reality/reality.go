@@ -23,13 +23,13 @@ import (
 	"time"
 	"unsafe"
 
+	"github.com/meichuanneiku/xray-core/common/crypto"
+	"github.com/meichuanneiku/xray-core/common/errors"
+	"github.com/meichuanneiku/xray-core/common/net"
+	"github.com/meichuanneiku/xray-core/core"
+	"github.com/meichuanneiku/xray-core/transport/internet/tls"
 	utls "github.com/refraction-networking/utls"
 	"github.com/xtls/reality"
-	"github.com/xtls/xray-core/common/crypto"
-	"github.com/xtls/xray-core/common/errors"
-	"github.com/xtls/xray-core/common/net"
-	"github.com/xtls/xray-core/core"
-	"github.com/xtls/xray-core/transport/internet/tls"
 	"golang.org/x/crypto/hkdf"
 	"golang.org/x/net/http2"
 )

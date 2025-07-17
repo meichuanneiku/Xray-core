@@ -6,11 +6,11 @@ import (
 	"strings"
 	"sync"
 
-	"github.com/xtls/xray-core/app/proxyman"
-	"github.com/xtls/xray-core/common"
-	"github.com/xtls/xray-core/common/errors"
-	"github.com/xtls/xray-core/core"
-	"github.com/xtls/xray-core/features/outbound"
+	"github.com/meichuanneiku/xray-core/app/proxyman"
+	"github.com/meichuanneiku/xray-core/common"
+	"github.com/meichuanneiku/xray-core/common/errors"
+	"github.com/meichuanneiku/xray-core/core"
+	"github.com/meichuanneiku/xray-core/features/outbound"
 )
 
 // Manager is to manage all outbound handlers.

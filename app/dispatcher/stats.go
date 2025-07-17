@@ -1,9 +1,9 @@
 package dispatcher
 
 import (
-	"github.com/xtls/xray-core/common"
-	"github.com/xtls/xray-core/common/buf"
-	"github.com/xtls/xray-core/features/stats"
+	"github.com/meichuanneiku/xray-core/common"
+	"github.com/meichuanneiku/xray-core/common/buf"
+	"github.com/meichuanneiku/xray-core/features/stats"
 )
 
 type SizeStatWriter struct {

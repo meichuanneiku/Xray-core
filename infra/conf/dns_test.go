@@ -4,9 +4,9 @@ import (
 	"encoding/json"
 	"testing"
 
-	"github.com/xtls/xray-core/app/dns"
-	"github.com/xtls/xray-core/common/net"
-	. "github.com/xtls/xray-core/infra/conf"
+	"github.com/meichuanneiku/xray-core/app/dns"
+	"github.com/meichuanneiku/xray-core/common/net"
+	. "github.com/meichuanneiku/xray-core/infra/conf"
 	"google.golang.org/protobuf/proto"
 )
 

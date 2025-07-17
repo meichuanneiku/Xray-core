@@ -9,14 +9,14 @@ import (
 	"path/filepath"
 	"strings"
 
-	"github.com/xtls/xray-core/app/dispatcher"
-	"github.com/xtls/xray-core/app/proxyman"
-	"github.com/xtls/xray-core/app/stats"
-	"github.com/xtls/xray-core/common/errors"
-	"github.com/xtls/xray-core/common/net"
-	"github.com/xtls/xray-core/common/serial"
-	core "github.com/xtls/xray-core/core"
-	"github.com/xtls/xray-core/transport/internet"
+	"github.com/meichuanneiku/xray-core/app/dispatcher"
+	"github.com/meichuanneiku/xray-core/app/proxyman"
+	"github.com/meichuanneiku/xray-core/app/stats"
+	"github.com/meichuanneiku/xray-core/common/errors"
+	"github.com/meichuanneiku/xray-core/common/net"
+	"github.com/meichuanneiku/xray-core/common/serial"
+	core "github.com/meichuanneiku/xray-core/core"
+	"github.com/meichuanneiku/xray-core/transport/internet"
 )
 
 var (

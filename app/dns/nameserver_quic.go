@@ -9,15 +9,15 @@ import (
 	"sync"
 	"time"
 
+	"github.com/meichuanneiku/xray-core/common/buf"
+	"github.com/meichuanneiku/xray-core/common/errors"
+	"github.com/meichuanneiku/xray-core/common/log"
+	"github.com/meichuanneiku/xray-core/common/net"
+	"github.com/meichuanneiku/xray-core/common/protocol/dns"
+	"github.com/meichuanneiku/xray-core/common/session"
+	dns_feature "github.com/meichuanneiku/xray-core/features/dns"
+	"github.com/meichuanneiku/xray-core/transport/internet/tls"
 	"github.com/quic-go/quic-go"
-	"github.com/xtls/xray-core/common/buf"
-	"github.com/xtls/xray-core/common/errors"
-	"github.com/xtls/xray-core/common/log"
-	"github.com/xtls/xray-core/common/net"
-	"github.com/xtls/xray-core/common/protocol/dns"
-	"github.com/xtls/xray-core/common/session"
-	dns_feature "github.com/xtls/xray-core/features/dns"
-	"github.com/xtls/xray-core/transport/internet/tls"
 	"golang.org/x/net/http2"
 )
 

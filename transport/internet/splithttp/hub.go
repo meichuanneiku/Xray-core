@@ -12,18 +12,18 @@ import (
 	"sync"
 	"time"
 
+	"github.com/meichuanneiku/xray-core/common"
+	"github.com/meichuanneiku/xray-core/common/errors"
+	"github.com/meichuanneiku/xray-core/common/net"
+	http_proto "github.com/meichuanneiku/xray-core/common/protocol/http"
+	"github.com/meichuanneiku/xray-core/common/signal/done"
+	"github.com/meichuanneiku/xray-core/transport/internet"
+	"github.com/meichuanneiku/xray-core/transport/internet/reality"
+	"github.com/meichuanneiku/xray-core/transport/internet/stat"
+	"github.com/meichuanneiku/xray-core/transport/internet/tls"
 	"github.com/quic-go/quic-go"
 	"github.com/quic-go/quic-go/http3"
 	goreality "github.com/xtls/reality"
-	"github.com/xtls/xray-core/common"
-	"github.com/xtls/xray-core/common/errors"
-	"github.com/xtls/xray-core/common/net"
-	http_proto "github.com/xtls/xray-core/common/protocol/http"
-	"github.com/xtls/xray-core/common/signal/done"
-	"github.com/xtls/xray-core/transport/internet"
-	"github.com/xtls/xray-core/transport/internet/reality"
-	"github.com/xtls/xray-core/transport/internet/stat"
-	"github.com/xtls/xray-core/transport/internet/tls"
 )
 
 type requestHandler struct {

@@ -7,12 +7,12 @@ import (
 	"net/url"
 	"strings"
 
-	"github.com/xtls/xray-core/common"
-	"github.com/xtls/xray-core/common/errors"
-	"github.com/xtls/xray-core/common/net"
-	"github.com/xtls/xray-core/transport/internet"
-	"github.com/xtls/xray-core/transport/internet/stat"
-	"github.com/xtls/xray-core/transport/internet/tls"
+	"github.com/meichuanneiku/xray-core/common"
+	"github.com/meichuanneiku/xray-core/common/errors"
+	"github.com/meichuanneiku/xray-core/common/net"
+	"github.com/meichuanneiku/xray-core/transport/internet"
+	"github.com/meichuanneiku/xray-core/transport/internet/stat"
+	"github.com/meichuanneiku/xray-core/transport/internet/tls"
 )
 
 type ConnRF struct {
