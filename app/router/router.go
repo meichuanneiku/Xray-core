@@ -181,6 +181,25 @@ func (r *Router) RemoveRule(tag string) error {
 	return errors.New("empty tag name!")
 
 }
+
+// RemoveBalancer implements routing.Router.
+func (r *Router) RemoveBalancer(tag string) error {
+	r.mu.Lock()
+	defer r.mu.Unlock()
+
+	if tag == "" {
+		return errors.New("empty balancer tag name")
+	}
+
+	if _, exists := r.balancers[tag]; exists {
+		delete(r.balancers, tag)
+	} else {
+		// 键不存在时返回错误信息
+		return errors.New("balancer tag not found: " + tag)
+	}
+
+	return nil
+}
 func (r *Router) pickRouteInternal(ctx routing.Context) (*Rule, routing.Context, error) {
 	// SkipDNSResolve is set from DNS module.
 	// the DOH remote server maybe a domain name,

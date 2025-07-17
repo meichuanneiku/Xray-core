@@ -16,6 +16,7 @@ type Router interface {
 	PickRoute(ctx Context) (Route, error)
 	AddRule(config *serial.TypedMessage, shouldAppend bool) error
 	RemoveRule(tag string) error
+	RemoveBalancer(tag string) error
 }
 
 // Route is the routing result of Router feature.
@@ -62,6 +63,11 @@ func (DefaultRouter) AddRule(config *serial.TypedMessage, shouldAppend bool) err
 
 // RemoveRule implements Router.
 func (DefaultRouter) RemoveRule(tag string) error {
+	return common.ErrNoClue
+}
+
+// RemoveBalancer implements Balancer
+func (DefaultRouter) RemoveBalancer(tag string) error {
 	return common.ErrNoClue
 }
 
