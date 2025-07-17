@@ -2,9 +2,7 @@ package observatory
 
 import (
 	"context"
-	"encoding/json"
 	"github.com/meichuanneiku/xray-core/common/serial"
-	"log"
 	"net"
 	"net/http"
 	"net/url"
@@ -269,23 +267,7 @@ func (o *Observer) GetConfig(ctx context.Context) string {
 	return o.config.String()
 }
 
-func (o *Observer) UpdateOtherConfig(config []byte) error {
-	o.statusLock.Lock()
-	defer o.statusLock.Unlock()
-
-	observatoryConfig := &Config{}
-	if err := json.Unmarshal(config, observatoryConfig); err != nil {
-		log.Panicf("Failed to unmarshal Routing config: %s", err)
-	}
-
-	o.config.ProbeUrl = observatoryConfig.ProbeUrl
-	o.config.ProbeInterval = int64(observatoryConfig.ProbeInterval)
-	o.config.EnableConcurrency = observatoryConfig.EnableConcurrency
-
-	return nil
-}
-
-func (o *Observer) UpdateOtherConfig2(config *serial.TypedMessage) error {
+func (o *Observer) UpdateOtherConfig(config *serial.TypedMessage) error {
 
 	inst, err := config.GetInstance()
 	if err != nil {

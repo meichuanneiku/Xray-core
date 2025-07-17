@@ -2,10 +2,7 @@ package burst
 
 import (
 	"context"
-	"encoding/json"
 	"github.com/meichuanneiku/xray-core/common/serial"
-	"log"
-
 	"sync"
 
 	"github.com/meichuanneiku/xray-core/app/observatory"
@@ -143,25 +140,7 @@ func (o *Observer) GetConfig(ctx context.Context) string {
 	return o.config.String()
 }
 
-func (o *Observer) UpdateOtherConfig(config []byte) error {
-	o.statusLock.Lock()
-	defer o.statusLock.Unlock()
-
-	observatoryConfig := &Config{}
-	if err := json.Unmarshal(config, observatoryConfig); err != nil {
-		log.Panicf("Failed to unmarshal Routing config: %s", err)
-	}
-
-	o.config.PingConfig.Destination = observatoryConfig.PingConfig.Destination
-	o.config.PingConfig.Interval = int64(observatoryConfig.PingConfig.Interval)
-	o.config.PingConfig.Connectivity = observatoryConfig.PingConfig.Connectivity
-	o.config.PingConfig.Timeout = int64(observatoryConfig.PingConfig.Timeout)
-	o.config.PingConfig.SamplingCount = int32(observatoryConfig.PingConfig.SamplingCount)
-
-	return nil
-}
-
-func (o *Observer) UpdateOtherConfig2(config *serial.TypedMessage) error {
+func (o *Observer) UpdateOtherConfig(config *serial.TypedMessage) error {
 
 	inst, err := config.GetInstance()
 	if err != nil {

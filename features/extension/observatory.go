@@ -15,8 +15,7 @@ type Observatory interface {
 
 	AddSelector(tag string) error
 	RemoveSelector(tag string) error
-	UpdateOtherConfig(config []byte) error
-	UpdateOtherConfig2(config *serial.TypedMessage) error
+	UpdateOtherConfig(config *serial.TypedMessage) error
 	GetConfig(ctx context.Context) string
 }
 
