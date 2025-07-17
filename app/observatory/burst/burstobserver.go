@@ -3,6 +3,7 @@ package burst
 import (
 	"context"
 	"encoding/json"
+	"github.com/meichuanneiku/xray-core/common/serial"
 	"log"
 
 	"sync"
@@ -160,10 +161,17 @@ func (o *Observer) UpdateOtherConfig(config []byte) error {
 	return nil
 }
 
-func (o *Observer) UpdateOtherConfig2(config proto.Message) error {
+func (o *Observer) UpdateOtherConfig2(config *serial.TypedMessage) error {
 
-	config2 := config.(*Config)
-	o.config.PingConfig = config2.PingConfig
+	inst, err := config.GetInstance()
+	if err != nil {
+		return err
+	}
+	if c, ok := inst.(*Config); ok {
+		o.statusLock.Lock()
+		defer o.statusLock.Unlock()
+		o.config.PingConfig = c.PingConfig
+	}
 
-	return nil
+	return errors.New("Update BurstObserver Other Config: config type error")
 }

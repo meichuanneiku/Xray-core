@@ -2,6 +2,7 @@ package extension
 
 import (
 	"context"
+	"github.com/meichuanneiku/xray-core/common/serial"
 
 	"github.com/meichuanneiku/xray-core/features"
 	"google.golang.org/protobuf/proto"
@@ -15,7 +16,7 @@ type Observatory interface {
 	AddSelector(tag string) error
 	RemoveSelector(tag string) error
 	UpdateOtherConfig(config []byte) error
-	UpdateOtherConfig2(config proto.Message) error
+	UpdateOtherConfig2(config *serial.TypedMessage) error
 	GetConfig(ctx context.Context) string
 }
 

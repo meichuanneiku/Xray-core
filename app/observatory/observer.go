@@ -3,6 +3,7 @@ package observatory
 import (
 	"context"
 	"encoding/json"
+	"github.com/meichuanneiku/xray-core/common/serial"
 	"log"
 	"net"
 	"net/http"
@@ -284,12 +285,20 @@ func (o *Observer) UpdateOtherConfig(config []byte) error {
 	return nil
 }
 
-func (o *Observer) UpdateOtherConfig2(config proto.Message) error {
+func (o *Observer) UpdateOtherConfig2(config *serial.TypedMessage) error {
 
-	config2 := config.(*Config)
-	o.config.ProbeUrl = config2.ProbeUrl
-	o.config.ProbeInterval = config2.ProbeInterval
-	o.config.EnableConcurrency = config2.EnableConcurrency
+	inst, err := config.GetInstance()
+	if err != nil {
+		return err
+	}
+	if c, ok := inst.(*Config); ok {
+		o.statusLock.Lock()
+		defer o.statusLock.Unlock()
 
-	return nil
+		o.config.ProbeUrl = c.ProbeUrl
+		o.config.ProbeInterval = c.ProbeInterval
+		o.config.EnableConcurrency = c.EnableConcurrency
+	}
+
+	return errors.New("Update Observer Other Config: config type error")
 }
