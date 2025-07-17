@@ -2,6 +2,8 @@ package observatory
 
 import (
 	"context"
+	"encoding/json"
+	"log"
 	"net"
 	"net/http"
 	"net/url"
@@ -237,4 +239,57 @@ func init() {
 	common.Must(common.RegisterConfig((*Config)(nil), func(ctx context.Context, config interface{}) (interface{}, error) {
 		return New(ctx, config.(*Config))
 	}))
+}
+
+func (o *Observer) AddSelector(tag string) error {
+	o.statusLock.Lock()
+	defer o.statusLock.Unlock()
+
+	o.config.SubjectSelector = append(o.config.SubjectSelector, tag)
+	return nil
+}
+func (o *Observer) RemoveSelector(tag string) error {
+	o.statusLock.Lock()
+	defer o.statusLock.Unlock()
+
+	if tag == "" {
+		return errors.New("empty tag")
+	}
+	for i, selector := range o.config.SubjectSelector {
+		if selector == tag {
+			o.config.SubjectSelector = append(o.config.SubjectSelector[:i], o.config.SubjectSelector[i+1:]...)
+			return nil
+		}
+	}
+	return errors.New("tag not found")
+}
+
+func (o *Observer) GetConfig(ctx context.Context) string {
+	return o.config.String()
+}
+
+func (o *Observer) UpdateOtherConfig(config []byte) error {
+	o.statusLock.Lock()
+	defer o.statusLock.Unlock()
+
+	observatoryConfig := &Config{}
+	if err := json.Unmarshal(config, observatoryConfig); err != nil {
+		log.Panicf("Failed to unmarshal Routing config: %s", err)
+	}
+
+	o.config.ProbeUrl = observatoryConfig.ProbeUrl
+	o.config.ProbeInterval = int64(observatoryConfig.ProbeInterval)
+	o.config.EnableConcurrency = observatoryConfig.EnableConcurrency
+
+	return nil
+}
+
+func (o *Observer) UpdateOtherConfig2(config proto.Message) error {
+
+	config2 := config.(*Config)
+	o.config.ProbeUrl = config2.ProbeUrl
+	o.config.ProbeInterval = config2.ProbeInterval
+	o.config.EnableConcurrency = config2.EnableConcurrency
+
+	return nil
 }

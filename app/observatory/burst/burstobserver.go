@@ -2,6 +2,8 @@ package burst
 
 import (
 	"context"
+	"encoding/json"
+	"log"
 
 	"sync"
 
@@ -110,4 +112,58 @@ func init() {
 	common.Must(common.RegisterConfig((*Config)(nil), func(ctx context.Context, config interface{}) (interface{}, error) {
 		return New(ctx, config.(*Config))
 	}))
+}
+
+func (o *Observer) AddSelector(tag string) error {
+	o.statusLock.Lock()
+	defer o.statusLock.Unlock()
+
+	o.config.SubjectSelector = append(o.config.SubjectSelector, tag)
+
+	return o.Start()
+}
+func (o *Observer) RemoveSelector(tag string) error {
+	o.statusLock.Lock()
+	defer o.statusLock.Unlock()
+
+	if tag == "" {
+		return errors.New("empty tag")
+	}
+	for i, selector := range o.config.SubjectSelector {
+		if selector == tag {
+			o.config.SubjectSelector = append(o.config.SubjectSelector[:i], o.config.SubjectSelector[i+1:]...)
+			return nil
+		}
+	}
+	return errors.New("tag not found")
+}
+
+func (o *Observer) GetConfig(ctx context.Context) string {
+	return o.config.String()
+}
+
+func (o *Observer) UpdateOtherConfig(config []byte) error {
+	o.statusLock.Lock()
+	defer o.statusLock.Unlock()
+
+	observatoryConfig := &Config{}
+	if err := json.Unmarshal(config, observatoryConfig); err != nil {
+		log.Panicf("Failed to unmarshal Routing config: %s", err)
+	}
+
+	o.config.PingConfig.Destination = observatoryConfig.PingConfig.Destination
+	o.config.PingConfig.Interval = int64(observatoryConfig.PingConfig.Interval)
+	o.config.PingConfig.Connectivity = observatoryConfig.PingConfig.Connectivity
+	o.config.PingConfig.Timeout = int64(observatoryConfig.PingConfig.Timeout)
+	o.config.PingConfig.SamplingCount = int32(observatoryConfig.PingConfig.SamplingCount)
+
+	return nil
+}
+
+func (o *Observer) UpdateOtherConfig2(config proto.Message) error {
+
+	config2 := config.(*Config)
+	o.config.PingConfig = config2.PingConfig
+
+	return nil
 }

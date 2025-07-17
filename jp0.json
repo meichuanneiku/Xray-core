@@ -1,0 +1,172 @@
+{
+	"log": {
+		"loglevel": "debug"
+	},
+	"metrics": {
+		"listen": "127.0.0.1:11111"
+	},
+	"burstObservatory": {
+		"subjectSelector": [
+			"hk"
+		],
+		"pingConfig": {
+			"destination": "https://connectivitycheck.gstatic.com/generate_204",
+			"connectivity": "",
+			"interval": "10s",
+			"sampling": 3,
+			"timeout": "30s"
+		}
+	},
+
+	"observatory": {},
+	"routing": {
+		 "rules": [
+            {
+                "inboundTag": [
+                    "inbound-proxy"
+                ],
+                "balancerTag": "balancers1",
+				"ruleTag": "rule1"
+            }
+        ],
+		"balancers": [
+			{
+				"selector": [
+					"hk"
+				],
+				"fallbackTag": "block",
+				"tag": "balancers1",
+				"strategy": {
+					"type": "leastLoad",
+					"settings": {}
+				}
+			}
+		],
+		"domainStrategy": "IPIfNonMatch"
+	},
+	"inbounds": [
+		{
+			"protocol": "vless",
+			"port": 24512,
+			"listen": "0.0.0.0",
+			"settings": {
+				"clients": [
+					{
+						"email": "Xray_0.0.0.0_24512|8fd05d75-1a66-4547-98d0-7c768d5ca4f3@yunzhou.com|10000001",
+						"flow": "xtls-rprx-vision",
+						"id": "8fd05d75-1a66-4547-98d0-7c768d5ca4f3"
+					}
+				],
+				"decryption": "none",
+				"fallbacks": []
+			},
+			"streamSettings": {
+				"network": "raw",
+				"security": "reality",
+				"realitySettings": {
+					"dest": "banmihub.com:443",
+					"maxClient": "",
+					"maxTimediff": 0,
+					"minClient": "",
+					"privateKey": "UJ_oUmh7pRmrd-H-Hd3OmL-AQnqykL19-5276LZqrPQ",
+					"serverNames": [
+						"banmihub.com"
+					],
+					"shortIds": [
+						"724447cc"
+					],
+					"show": true,
+					"xver": 0
+				},
+				"rawSettings": {
+					"acceptProxyProtocol": false,
+					"header": {
+						"type": "none"
+					}
+				}
+			},
+			"tag": "inbound-proxy",
+			"sniffing": {
+				"enabled": true,
+				"destOverride": [
+					"http",
+					"tls",
+					"quic",
+					"fakedns"
+				]
+			}
+		}
+	],
+	"outbounds": [
+		{
+			"tag": "hk-new",
+			"protocol": "vless",
+			"settings": {
+				"vnext": [
+					{
+						"address": "38.60.203.171",
+						"port": 12348,
+						"users": [
+							{
+								"encryption": "none",
+								"flow": "xtls-rprx-vision",
+								"id": "8fd05d75-1a66-4547-98d0-7c768d5ca4f3"
+							}
+						]
+					}
+				]
+			},
+			"streamSettings": {
+				"network": "raw",
+				"security": "reality",
+				"realitySettings": {
+					"allowInsecure": false,
+					"fingerprint": "firefox",
+					"publicKey": "GoZsZe1XIY2DjKWYoXDSwzJdPevW-PnyFifThwCwKUk",
+					"serverName": "banmihub.com",
+					"shortId": "724447cc",
+					"show": false,
+					"spiderX": "/"
+				}
+			}
+		},
+		{
+			"tag": "hk-old",
+			"protocol": "vless",
+			"settings": {
+				"vnext": [
+					{
+						"address": "123.108.109.113",
+						"port": 12349,
+						"users": [
+							{
+								"encryption": "none",
+								"flow": "xtls-rprx-vision",
+								"id": "8fd05d75-1a66-4547-98d0-7c768d5ca4f3"
+							}
+						]
+					}
+				]
+			},
+			"streamSettings": {
+				"network": "raw",
+				"security": "reality",
+				"realitySettings": {
+					"allowInsecure": false,
+					"fingerprint": "firefox",
+					"publicKey": "GoZsZe1XIY2DjKWYoXDSwzJdPevW-PnyFifThwCwKUk",
+					"serverName": "banmihub.com",
+					"shortId": "724447cc",
+					"show": false,
+					"spiderX": "/"
+				}
+			}
+		},
+		{
+			"tag": "block",
+			"protocol": "blackhole",
+			"settings": null,
+			"streamSettings": null
+		}
+	]
+}
