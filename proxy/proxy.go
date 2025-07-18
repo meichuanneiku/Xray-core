@@ -29,6 +29,7 @@ import (
 	"github.com/meichuanneiku/xray-core/transport/internet/reality"
 	"github.com/meichuanneiku/xray-core/transport/internet/stat"
 	"github.com/meichuanneiku/xray-core/transport/internet/tls"
+	"github.com/pires/go-proxyproto"
 )
 
 var (
