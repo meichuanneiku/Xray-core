@@ -245,7 +245,13 @@ func (o *Observer) AddSelector(tag string) error {
 	defer o.statusLock.Unlock()
 
 	o.config.SubjectSelector = append(o.config.SubjectSelector, tag)
-	return nil
+	if o.finished != nil {
+		err := o.finished.Close()
+		if err != nil {
+			return err
+		}
+	}
+	return o.Start()
 }
 func (o *Observer) RemoveSelector(tag string) error {
 	o.statusLock.Lock()
@@ -257,7 +263,13 @@ func (o *Observer) RemoveSelector(tag string) error {
 	for i, selector := range o.config.SubjectSelector {
 		if selector == tag {
 			o.config.SubjectSelector = append(o.config.SubjectSelector[:i], o.config.SubjectSelector[i+1:]...)
-			return nil
+			if o.finished != nil {
+				err := o.finished.Close()
+				if err != nil {
+					return err
+				}
+			}
+			return o.Start()
 		}
 	}
 	return errors.New("tag not found")
@@ -282,5 +294,11 @@ func (o *Observer) UpdateOtherConfig(config *serial.TypedMessage) error {
 		o.config.EnableConcurrency = c.EnableConcurrency
 	}
 
-	return errors.New("Update Observer Other Config: config type error")
+	if o.finished != nil {
+		err = o.finished.Close()
+		if err != nil {
+			return err
+		}
+	}
+	return o.Start()
 }

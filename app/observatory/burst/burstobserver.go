@@ -118,6 +118,11 @@ func (o *Observer) AddSelector(tag string) error {
 
 	o.config.SubjectSelector = append(o.config.SubjectSelector, tag)
 
+	if o.finished != nil {
+		o.hp.StopScheduler()
+		//return o.Start()
+	}
+
 	return o.Start()
 }
 func (o *Observer) RemoveSelector(tag string) error {
@@ -130,7 +135,10 @@ func (o *Observer) RemoveSelector(tag string) error {
 	for i, selector := range o.config.SubjectSelector {
 		if selector == tag {
 			o.config.SubjectSelector = append(o.config.SubjectSelector[:i], o.config.SubjectSelector[i+1:]...)
-			return nil
+			if o.finished != nil {
+				o.hp.StopScheduler()
+				return o.Start()
+			}
 		}
 	}
 	return errors.New("tag not found")
@@ -152,5 +160,10 @@ func (o *Observer) UpdateOtherConfig(config *serial.TypedMessage) error {
 		o.config.PingConfig = c.PingConfig
 	}
 
-	return errors.New("Update BurstObserver Other Config: config type error")
+	if o.finished != nil {
+		o.hp.StopScheduler()
+		//return o.Start()
+	}
+
+	return o.Start()
 }
